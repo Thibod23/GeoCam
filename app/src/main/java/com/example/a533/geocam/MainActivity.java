@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.a533.geocam.model.Picture;
+import com.example.a533.geocam.repository.PictureRepository;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
@@ -26,15 +28,19 @@ public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "Main_Activity";
 
+    PictureRepository pictureRepository;
     Button takePictureButton;
     String currentPhotoPath;
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        pictureRepository = new PictureRepository();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setListener();
+        Picture picture = new Picture("dsadsa");
+        pictureRepository.save(picture);
     }
 
     private void setListener(){
