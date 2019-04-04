@@ -14,7 +14,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.a533.geocam.error.CouldNotSavePictureException;
 import com.example.a533.geocam.model.Picture;
 import com.example.a533.geocam.repository.PictureRepository;
 import com.google.firebase.database.FirebaseDatabase;
@@ -96,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
                 Uri photoURI = FileProvider.getUriForFile(this, "com.example.android.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                galleryAddPic();
             }
         }
     }
@@ -123,12 +124,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void galleryAddPic() {
+    private String galleryAddPic() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         File f = new File(currentPhotoPath);
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
-        this.pictureRepository.save(new Picture(f.getName()));
+        return f.getName();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            try{
+                String fileName = galleryAddPic();
+                this.pictureRepository.save(new Picture(fileName));
+            } catch (CouldNotSavePictureException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Could not save image", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
