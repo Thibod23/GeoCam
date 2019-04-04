@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         txt_nomPhoto = findViewById(R.id.txt_nomPhoto);
         setListener();
-        Picture picture = new Picture("dsadsa");
-        pictureRepository.save(picture);
     }
 
     private void setListener(){
@@ -94,9 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("TAG",ex.getMessage());
             }
             // Continue only if the File was successfully created
-            Log.d(TAG, "avant if");
             if(photoFile != null){
-                Log.d(TAG, "dans if");
                 Uri photoURI = FileProvider.getUriForFile(this, "com.example.android.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
@@ -133,5 +129,6 @@ public class MainActivity extends AppCompatActivity {
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
+        this.pictureRepository.save(new Picture(f.getName()));
     }
 }

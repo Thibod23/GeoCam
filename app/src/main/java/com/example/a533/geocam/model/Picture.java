@@ -1,9 +1,9 @@
 package com.example.a533.geocam.model;
 
 public class Picture {
-    private String name;
-    private String lat;
-    private String lng;
+    public String name;
+    public String lat;
+    public String lng;
 
     public Picture() {
         this.name = "";

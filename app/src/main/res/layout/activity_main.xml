@@ -27,8 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPhonetic"
         android:maxLength="25"
+        android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyY zZ0123456789"
         app:layout_constraintBottom_toTopOf="@+id/btnTakePicture"
         app:layout_constraintEnd_toEndOf="@+id/btnTakePicture"
         app:layout_constraintStart_toStartOf="@+id/btnTakePicture" />
