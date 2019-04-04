@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "1020306533547",
+    "firebase_url": "https://geocam-6b57a.firebaseio.com",
+    "project_id": "geocam-6b57a",
+    "storage_bucket": "geocam-6b57a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1020306533547:android:2c7c67c9dcf5194c",
+        "android_client_info": {
+          "package_name": "com.example.a533.geocam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1020306533547-q437cfejn2kranii1apm6irc8805h1aq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.a533.geocam",
+            "certificate_hash": "5469e36528087c8b25fd46cf8f0bc1fbca8c39f0"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAl5RZbMBRnkXdIzpaM8Py2gO87Dfady-U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1020306533547-h4418tp90auc6l13av72m4p4egil1ks8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
