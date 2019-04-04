@@ -8,9 +8,12 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,12 +29,17 @@ public class MainActivity extends AppCompatActivity {
 
     Button takePictureButton;
     String currentPhotoPath;
+    String NomPhoto;
+    TextView txt_nomPhoto;
     static final int REQUEST_IMAGE_CAPTURE = 1;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        txt_nomPhoto = findViewById(R.id.txt_nomPhoto);
         setListener();
     }
 
@@ -41,6 +49,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dispatchTakePictureIntent();
+            }
+        });
+
+        txt_nomPhoto.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(txt_nomPhoto.getText().length() == 0){
+                    takePictureButton.setEnabled(false);
+                }else{
+                    takePictureButton.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
@@ -70,8 +99,10 @@ public class MainActivity extends AppCompatActivity {
 
     private File createImageFile() throws IOException{
         //Create an image file name
+
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+        String imageFileName = txt_nomPhoto.getText().toString() + "_" + timeStamp + "_";
+        Log.d("TakePicture", imageFileName);
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         if(!storageDir.exists()){
             storageDir.mkdirs();
