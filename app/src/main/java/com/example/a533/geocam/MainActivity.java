@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         //Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/Camera/");
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         if(!storageDir.exists()){
             storageDir.mkdirs();
         }
