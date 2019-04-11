@@ -1,6 +1,8 @@
 package com.example.a533.geocam;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Environment;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import com.example.a533.geocam.error.CouldNotSavePictureException;
 import com.example.a533.geocam.model.Picture;
 import com.example.a533.geocam.repository.PictureRepository;
+import com.example.a533.geocam.utils.LocationFinder;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
@@ -34,17 +37,21 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = "Main_Activity";
 
     PictureRepository pictureRepository;
+    LocationFinder locationFinder;
+
     Button takePictureButton;
     String currentPhotoPath;
     String NomPhoto;
     TextView txt_nomPhoto;
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         pictureRepository = new PictureRepository();
+        locationFinder = new LocationFinder((LocationManager) getSystemService(Context.LOCATION_SERVICE), this);
+        System.out.println("lat" + locationFinder.findLat());
+        System.out.println("lng" + locationFinder.findLng());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         txt_nomPhoto = findViewById(R.id.txt_nomPhoto);
@@ -135,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             try{
                 String fileName = galleryAddPic();
