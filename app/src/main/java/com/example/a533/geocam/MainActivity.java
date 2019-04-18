@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.example.a533.geocam.error.CouldNotSavePictureException;
 import com.example.a533.geocam.model.Picture;
 import com.example.a533.geocam.repository.PictureRepository;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 import java.io.IOException;
