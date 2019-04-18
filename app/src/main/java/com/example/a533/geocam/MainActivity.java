@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
         pictureRepository = new PictureRepository();
         locationFinder = new LocationFinder((LocationManager) getSystemService(Context.LOCATION_SERVICE), this);
-        System.out.println("lat" + locationFinder.findLat());
-        System.out.println("lng" + locationFinder.findLng());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         txt_nomPhoto = findViewById(R.id.txt_nomPhoto);
@@ -146,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             try{
                 String fileName = galleryAddPic();
-                this.pictureRepository.save(new Picture(fileName));
+                this.pictureRepository.save(new Picture(fileName, String.valueOf(this.locationFinder.findLat()), String.valueOf(this.locationFinder.findLng())));
             } catch (CouldNotSavePictureException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Could not save image", Toast.LENGTH_SHORT).show();
