@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     LocationFinder locationFinder;
 
     Button takePictureButton;
+    Button showPictureButton;
     String currentPhotoPath;
     String NomPhoto;
     TextView txt_nomPhoto;
@@ -64,6 +65,16 @@ public class MainActivity extends AppCompatActivity {
                 dispatchTakePictureIntent();
             }
         });
+        showPictureButton = findViewById(R.id.btn_afficherPhotos);
+        showPictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentRecyclerPhoto = new Intent(getApplicationContext(), AfficherPhotosActivity.class);
+                startActivity(intentRecyclerPhoto);
+            }
+        });
+
+
 
         txt_nomPhoto.addTextChangedListener(new TextWatcher() {
             @Override
