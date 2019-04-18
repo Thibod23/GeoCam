@@ -1,6 +1,8 @@
 package com.example.a533.geocam;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Environment;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import com.example.a533.geocam.error.CouldNotSavePictureException;
 import com.example.a533.geocam.model.Picture;
 import com.example.a533.geocam.repository.PictureRepository;
+import com.example.a533.geocam.utils.LocationFinder;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
@@ -34,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = "Main_Activity";
 
     PictureRepository pictureRepository;
+    LocationFinder locationFinder;
+
     Button takePictureButton;
     Button showPictureButton;
     String currentPhotoPath;
@@ -41,11 +46,11 @@ public class MainActivity extends AppCompatActivity {
     TextView txt_nomPhoto;
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         pictureRepository = new PictureRepository();
+        locationFinder = new LocationFinder((LocationManager) getSystemService(Context.LOCATION_SERVICE), this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         txt_nomPhoto = findViewById(R.id.txt_nomPhoto);
@@ -146,10 +151,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             try{
                 String fileName = galleryAddPic();
-                this.pictureRepository.save(new Picture(fileName));
+                this.pictureRepository.save(new Picture(fileName, String.valueOf(this.locationFinder.findLat()), String.valueOf(this.locationFinder.findLng())));
             } catch (CouldNotSavePictureException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Could not save image", Toast.LENGTH_SHORT).show();
