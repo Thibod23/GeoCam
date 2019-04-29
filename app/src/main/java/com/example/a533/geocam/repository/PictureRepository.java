@@ -49,14 +49,6 @@ public class PictureRepository {
 
     }
 
-    public void fillList(final List<Picture> pictures, final PictureRepository.MyCallbackFillListPictures myCallback){
-
-    }
-
-    public void findByName(String name) {
-        throw new Error("Not implemented");
-    }
-
     public void save(Picture picture) {
         database.collection(PICTURE_COLLECTION_NAME).add(picture).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
@@ -66,9 +58,5 @@ public class PictureRepository {
                 }
             }
         });
-    }
-
-    public void delete() {
-        throw new Error("Not implemented");
     }
 }
