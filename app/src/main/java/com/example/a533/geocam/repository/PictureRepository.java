@@ -41,7 +41,6 @@ public class PictureRepository {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 pictures.add(new Picture(document.get("name").toString(), document.get("lat").toString(), document.get("lng").toString()));
                             }
-                            //fillList(pictures, PictureRepository.MyCallbackFillListPictures);
                             todoWhenFinished.onQueryFinished(pictures);
                         }
                     }
