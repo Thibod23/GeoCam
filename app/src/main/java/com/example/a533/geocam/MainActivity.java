@@ -20,6 +20,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     PictureRepository pictureRepository;
     LocationFinder locationFinder;
+    Animation bounce;
 
     boolean locationPermissionGranted = false;
 
@@ -58,13 +61,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         pictureRepository = new PictureRepository();
         locationFinder = new LocationFinder((LocationManager) getSystemService(Context.LOCATION_SERVICE), this);
         super.onCreate(savedInstanceState);
+        this.bounce = AnimationUtils.loadAnimation(this, R.anim.bounce);
         setContentView(R.layout.activity_main);
         txt_nomPhoto = findViewById(R.id.txt_nomPhoto);
         setListener();
+        startAnimation();
+    }
+
+    private void startAnimation() {
+        showPictureButton = findViewById(R.id.btn_afficherPhotos);
+        showPictureButton.startAnimation(bounce);
     }
 
     private void setListener(){
